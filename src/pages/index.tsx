@@ -23,7 +23,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="h-screen max-w-lg mx-auto py-4 px-4 shadow-lg flex flex-col space-y-2">
+      <div className="h-full max-w-lg mx-auto py-4 px-4 shadow-lg flex flex-col space-y-2">
         <div>
           <label
             htmlFor="media"
