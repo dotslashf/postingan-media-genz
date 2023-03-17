@@ -9,10 +9,14 @@ interface Props {
     topOffset: number;
     maxWidth?: number;
   };
+  colorMode: string;
 }
 
 const Canvas = (props: Props) => {
   const canvas = React.useRef<HTMLCanvasElement>(null);
+  const dark = "#000000";
+  const light = "#ffffff";
+  const textColor = props.colorMode === light ? dark : light;
   const canvasInfo = {
     width: 500,
     height: 500,
@@ -23,7 +27,7 @@ const Canvas = (props: Props) => {
       const ctx = canvas.current.getContext("2d")!;
       removeMediaText(ctx);
       removeCaptionText(ctx);
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = props.colorMode;
       ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
       drawMediaText(ctx, props.mediaText);
       drawCaption(ctx, props.caption);
@@ -34,6 +38,7 @@ const Canvas = (props: Props) => {
     props.mediaPosition,
     props.caption,
     props.captionControl,
+    props.colorMode
   ]);
 
   const removeMediaText = (ctx: CanvasRenderingContext2D) => {
@@ -46,7 +51,7 @@ const Canvas = (props: Props) => {
   };
 
   const drawMediaText = (ctx: CanvasRenderingContext2D, text: string) => {
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = textColor;
     ctx.font = "48px Bebas Neue";
     ctx.textAlign = "center";
     if (props.mediaPosition.includes("r")) ctx.textAlign = "right";
@@ -58,7 +63,7 @@ const Canvas = (props: Props) => {
   };
 
   const drawCaption = (ctx: CanvasRenderingContext2D, text: string) => {
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = textColor;
     ctx.font = "32px Heebo";
     ctx.textAlign = (props.captionControl.align as CanvasTextAlign) || "center";
     const maxWidth = props.captionControl.maxWidth
