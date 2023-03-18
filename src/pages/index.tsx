@@ -1,4 +1,5 @@
 import Canvas from "@/components/Canvas";
+import { Disclosure } from "@headlessui/react";
 import Head from "next/head";
 import React from "react";
 // import { Inter } from "next/font/google";
@@ -6,7 +7,7 @@ import React from "react";
 export default function Home() {
   const [mediaText, setMediaText] = React.useState("MEDIAGENZ");
   const [caption, setCaption] = React.useState(
-    "Caption Berita Yang Gak Penting Penting Amat. Tapi Gen Z Tetap Aja Percaya. Padahal Mah Dibodo bodoin. Modal Backround Putih Caption Text Hitam"
+    `Postingan Media "Kekinian"\n Modal Background Putih\n Dan Text Hitam, \nBut Almost \nAny Gen Z Fall For It 😆`
   );
   const [mediaPosition, setMediaPosition] = React.useState("tr");
   const [captionControl, setCaptionControl] = React.useState({
@@ -14,7 +15,7 @@ export default function Home() {
     topOffset: 0,
     maxWidth: 480,
   });
-  const [colorMode, setColorMode] = React.useState("#ffffff");
+  const [colorMode, setColorMode] = React.useState("light");
 
   return (
     <>
@@ -25,26 +26,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="h-full max-w-lg mx-auto py-4 px-4 shadow-lg flex flex-col space-y-2">
-        <div>
-          <label
-            htmlFor="media"
-            className="block text-sm font-medium leading-6 text-gray-900"
+        <div className="flex gap-x-4">
+          <div
+            className="w-1/2
+          "
           >
-            Media
-          </label>
-          <div className="mt-2">
-            <input
-              id="media"
-              name="media"
-              className="w-full px-2 py-2 rounded-md border-gray-400 border"
-              placeholder="ICKWR"
-              defaultValue={""}
-              onChange={(e) => setMediaText(e.target.value)}
-            />
+            <label
+              htmlFor="media"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Media
+            </label>
+            <div className="mt-2">
+              <input
+                id="media"
+                name="media"
+                className="w-full px-2 py-2 rounded-md border-gray-400 border"
+                placeholder="ICKWR"
+                onChange={(e) => setMediaText(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="w-full py-2 rounded-md ">
+          <div className="w-1/2">
             <label
               htmlFor="mediaPosition"
               className="block text-sm font-medium leading-6 text-gray-900"
@@ -53,37 +56,17 @@ export default function Home() {
             </label>
             <select
               id="mediaPosition"
-              className="w-full px-2 py-2 rounded-md border-gray-400 border"
-              defaultValue={mediaPosition}
+              className="mt-2 w-full px-2 py-2 rounded-md border-gray-400 border"
+              defaultValue={"tr"}
               onChange={(e) => {
                 setMediaPosition(e.target.value);
               }}
             >
-              <option selected>Pilih posisi</option>
+              <option value={""}>Pilih posisi</option>
               <option value="tl">Atas Kiri</option>
               <option value="tr">Atas Kanan</option>
               <option value="bl">Bawah Kiri</option>
               <option value="br">Bawah Kanan</option>
-            </select>
-          </div>
-          <div className="w-full py-2 rounded-md ">
-            <label
-              htmlFor="colorMode"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Color Mode
-            </label>
-            <select
-              id="colorMode"
-              className="w-full px-2 py-2 rounded-md border-gray-400 border"
-              defaultValue={colorMode}
-              onChange={(e) => {
-                setColorMode(e.target.value);
-              }}
-            >
-              <option selected>Pilih color mode</option>
-              <option value="#ffffff">Light</option>
-              <option value="#000000">Dark</option>
             </select>
           </div>
         </div>
@@ -106,83 +89,131 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex space-x-2">
-          <div className="w-44">
-            <label
-              htmlFor="align"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Caption Align
-            </label>
-            <div className="mt-2">
-              <select
-                id="mediaPosition"
-                className="w-full px-2 py-2 rounded-md border-gray-400 border"
-                defaultValue={captionControl.align}
-                onChange={(e) => {
-                  setCaptionControl({
-                    ...captionControl,
-                    align: e.target.value,
-                  });
-                }}
-              >
-                <option selected>Pilih align</option>
-                <option value="left">Left</option>
-                <option value="right">Right</option>
-                <option value="center">Center</option>
-              </select>
-            </div>
-          </div>
-          <div className="">
-            <label
-              htmlFor="topOffset"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Top Offset
-            </label>
-            <div className="mt-2">
-              <input
-                id="topOffset"
-                name="topOffset"
-                className="w-full px-2 py-2 rounded-md border-gray-400 border"
-                placeholder="0"
-                defaultValue={""}
-                value={captionControl.topOffset}
-                onChange={(e) =>
-                  setCaptionControl({
-                    ...captionControl,
-                    topOffset: parseInt(e.target.value),
-                  })
-                }
-                type="number"
-              />
-            </div>
-          </div>
-          <div className="">
-            <label
-              htmlFor="maxWidth"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Max Width
-            </label>
-            <div className="mt-2">
-              <input
-                id="maxWidth"
-                name="maxWidth"
-                className="w-full px-2 py-2 rounded-md border-gray-400 border"
-                placeholder="480"
-                defaultValue={"480"}
-                onChange={(e) =>
-                  setCaptionControl({
-                    ...captionControl,
-                    maxWidth: parseInt(e.target.value),
-                  })
-                }
-                type="number"
-              />
-            </div>
-          </div>
-        </div>
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="text-sm w-full px-2 py-2 rounded-md border-gray-400 border flex justify-between items-center">
+                <label className="block text-sm font-medium leading-6 text-gray-900">
+                  Options
+                </label>
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  className={`w-4 h-4 ${open ? "transform rotate-180" : ""}`}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
+              </Disclosure.Button>
+              <Disclosure.Panel className="text-gray-500">
+                <div className="grid grid-cols-4 gap-x-2">
+                  <div className="">
+                    <label
+                      htmlFor="align"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Caption Align
+                    </label>
+                    <div className="mt-2">
+                      <select
+                        id="mediaPosition"
+                        className="w-full px-2 py-2 rounded-md border-gray-400 border"
+                        defaultValue={"center"}
+                        onChange={(e) => {
+                          setCaptionControl({
+                            ...captionControl,
+                            align: e.target.value,
+                          });
+                        }}
+                      >
+                        <option value={""}>Pilih align</option>
+                        <option value="left">Left</option>
+                        <option value="right">Right</option>
+                        <option value="center">Center</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="">
+                    <label
+                      htmlFor="topOffset"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Top Offset
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="topOffset"
+                        name="topOffset"
+                        className="w-full px-2 py-2 rounded-md border-gray-400 border"
+                        placeholder="0"
+                        value={captionControl.topOffset}
+                        onChange={(e) =>
+                          setCaptionControl({
+                            ...captionControl,
+                            topOffset: parseInt(e.target.value),
+                          })
+                        }
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                  <div className="">
+                    <label
+                      htmlFor="maxWidth"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Max Width
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="maxWidth"
+                        name="maxWidth"
+                        className="w-full px-2 py-2 rounded-md border-gray-400 border"
+                        placeholder="480"
+                        defaultValue={"480"}
+                        onChange={(e) =>
+                          setCaptionControl({
+                            ...captionControl,
+                            maxWidth: parseInt(e.target.value),
+                          })
+                        }
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                  <div className="">
+                    <label
+                      htmlFor="colorMode"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Color Mode
+                    </label>
+                    <select
+                      id="colorMode"
+                      className="w-full px-2 py-2 rounded-md border-gray-400 border mt-2"
+                      defaultValue={colorMode}
+                      onChange={(e) => {
+                        setColorMode(e.target.value);
+                      }}
+                    >
+                      <option value={""}>Pilih color mode</option>
+                      <option value="light">Light</option>
+                      <option value="dark">Dark</option>
+                    </select>
+                  </div>
+                </div>
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+
         <div className="">
           <Canvas
             mediaText={mediaText}
