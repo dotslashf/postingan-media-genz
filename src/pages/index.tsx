@@ -14,6 +14,7 @@ export default function Home() {
     topOffset: 0,
     maxWidth: 480,
   });
+  const [colorMode, setColorMode] = React.useState("#ffffff");
 
   return (
     <>
@@ -42,27 +43,50 @@ export default function Home() {
             />
           </div>
         </div>
-        <div>
-          <label
-            htmlFor="mediaPosition"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            Media Position
-          </label>
-          <select
-            id="mediaPosition"
-            className="w-full px-2 py-2 rounded-md border-gray-400 border"
-            value={mediaPosition}
-            onChange={(e) => {
-              setMediaPosition(e.target.value);
-            }}
-          >
-            <option selected>Pilih posisi</option>
-            <option value="tl">Atas Kiri</option>
-            <option value="tr">Atas Kanan</option>
-            <option value="bl">Bawah Kiri</option>
-            <option value="br">Bawah Kanan</option>
-          </select>
+        <div className="flex gap-2">
+          <div className="w-full py-2 rounded-md ">
+            <label
+              htmlFor="mediaPosition"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Media Position
+            </label>
+            <select
+              id="mediaPosition"
+              className="w-full px-2 py-2 rounded-md border-gray-400 border"
+              value={mediaPosition}
+              onChange={(e) => {
+                setMediaPosition(e.target.value);
+              }}
+            >
+              <option selected>Pilih posisi</option>
+              <option value="tl">Atas Kiri</option>
+              <option value="tr">Atas Kanan</option>
+              <option value="bl">Bawah Kiri</option>
+              <option value="br">Bawah Kanan</option>
+            </select>
+          </div>
+          <div className="w-full py-2 rounded-md ">
+            <label
+              htmlFor="colorMode"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Color Mode
+            </label>
+            <select
+              id="colorMode"
+              className="w-full px-2 py-2 rounded-md border-gray-400 border"
+              value={colorMode}
+              onChange={(e) => {
+                setColorMode(e.target.value);
+              }}
+            >
+              <option selected>Pilih color mode</option>
+              <option value="#ffffff">Light</option>
+              <option value="#000000">Dark</option>
+              
+            </select>
+          </div>
         </div>
         <div>
           <label
@@ -166,6 +190,7 @@ export default function Home() {
             caption={caption}
             mediaPosition={mediaPosition}
             captionControl={captionControl}
+            colorMode={colorMode}
           />
         </div>
       </div>
