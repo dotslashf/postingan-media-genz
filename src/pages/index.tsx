@@ -54,7 +54,7 @@ export default function Home() {
             <select
               id="mediaPosition"
               className="w-full px-2 py-2 rounded-md border-gray-400 border"
-              value={mediaPosition}
+              defaultValue={mediaPosition}
               onChange={(e) => {
                 setMediaPosition(e.target.value);
               }}
@@ -76,7 +76,7 @@ export default function Home() {
             <select
               id="colorMode"
               className="w-full px-2 py-2 rounded-md border-gray-400 border"
-              value={colorMode}
+              defaultValue={colorMode}
               onChange={(e) => {
                 setColorMode(e.target.value);
               }}
@@ -84,7 +84,6 @@ export default function Home() {
               <option selected>Pilih color mode</option>
               <option value="#ffffff">Light</option>
               <option value="#000000">Dark</option>
-              
             </select>
           </div>
         </div>
@@ -119,7 +118,7 @@ export default function Home() {
               <select
                 id="mediaPosition"
                 className="w-full px-2 py-2 rounded-md border-gray-400 border"
-                value={captionControl.align}
+                defaultValue={captionControl.align}
                 onChange={(e) => {
                   setCaptionControl({
                     ...captionControl,
