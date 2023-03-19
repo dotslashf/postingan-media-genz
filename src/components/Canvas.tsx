@@ -11,6 +11,10 @@ interface Props {
     maxWidth?: number;
   };
   colorMode: "light" | "dark" | string;
+  fontSize: {
+    media: number;
+    caption: number;
+  };
 }
 
 const DARK_COLOR = "#18191A";
@@ -48,6 +52,7 @@ const Canvas = (props: Props) => {
     props.caption,
     props.captionControl,
     props.colorMode,
+    props.fontSize,
   ]);
 
   const removeMediaText = (ctx: CanvasRenderingContext2D) => {
@@ -61,24 +66,29 @@ const Canvas = (props: Props) => {
 
   const drawMediaText = (ctx: CanvasRenderingContext2D, text: string) => {
     ctx.fillStyle = textColor;
-    ctx.font = `48px ${bebasFontFamily}`;
+    ctx.font = `${props.fontSize.media}px ${bebasFontFamily}`;
     ctx.textAlign = "center";
+    const metrics = ctx.measureText(text);
+    const fontHeight =
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+    console.log(metrics, fontHeight);
+
     if (props.mediaPosition.includes("r")) ctx.textAlign = "right";
     if (props.mediaPosition.includes("l")) ctx.textAlign = "left";
-    if (props.mediaPosition === "tr") ctx.fillText(text, 490, 50);
-    if (props.mediaPosition === "tl") ctx.fillText(text, 10, 50);
+    if (props.mediaPosition === "tr") ctx.fillText(text, 490, fontHeight + 15);
+    if (props.mediaPosition === "tl") ctx.fillText(text, 10, fontHeight + 15);
     if (props.mediaPosition === "br") ctx.fillText(text, 490, 485);
     if (props.mediaPosition === "bl") ctx.fillText(text, 10, 485);
   };
 
   const drawCaption = (ctx: CanvasRenderingContext2D, text: string) => {
     ctx.fillStyle = textColor;
-    ctx.font = `32px ${heeboFontFamily}`;
+    ctx.font = `${props.fontSize.caption}px ${heeboFontFamily}`;
     ctx.textAlign = (props.captionControl.align as CanvasTextAlign) || "center";
     const maxWidth = props.captionControl.maxWidth
       ? props.captionControl.maxWidth
       : 480;
-    const lineHeight = 32;
+    const lineHeight = props.fontSize.caption;
     let x = canvasInfo.width / 2;
     if (props.captionControl.align === "left") {
       x = canvasInfo.width - maxWidth;
