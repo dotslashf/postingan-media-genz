@@ -20,9 +20,14 @@ type ObjectTweet = {
   };
 };
 
+type DataToReturn = {
+  text: string;
+  username: string;
+};
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<DataToReturn>
 ) {
   const request = await fetch(
     `${endpointURL}${req.query.id}?tweet.fields=created_at&expansions=author_id&user.fields=username`,
