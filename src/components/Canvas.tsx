@@ -15,6 +15,8 @@ interface Props {
     media: number;
     caption: number;
   };
+  bgColor: string;
+  textColor: string;
 }
 
 const DARK_COLOR = "#18191A";
@@ -22,7 +24,12 @@ const LIGHT_COLOR = "#FFFFFF";
 
 const Canvas = (props: Props) => {
   const canvas = React.useRef<HTMLCanvasElement>(null);
-  const textColor = props.colorMode === "light" ? DARK_COLOR : LIGHT_COLOR;
+  const textColor =
+    props.colorMode === "custom"
+      ? props.textColor
+      : props.colorMode === "light"
+      ? DARK_COLOR
+      : LIGHT_COLOR;
   const canvasInfo = {
     width: 500,
     height: 500,
@@ -40,7 +47,12 @@ const Canvas = (props: Props) => {
       const ctx = canvas.current.getContext("2d")!;
       removeMediaText(ctx);
       removeCaptionText(ctx);
-      ctx.fillStyle = props.colorMode === "light" ? LIGHT_COLOR : DARK_COLOR;
+      ctx.fillStyle =
+        props.colorMode === "custom"
+          ? props.bgColor
+          : props.colorMode === "light"
+          ? LIGHT_COLOR
+          : DARK_COLOR;
       ctx.fillRect(0, 0, canvasInfo.width, canvasInfo.height);
       drawMediaText(ctx, props.mediaText);
       drawCaption(ctx, props.caption);
@@ -53,6 +65,8 @@ const Canvas = (props: Props) => {
     props.captionControl,
     props.colorMode,
     props.fontSize,
+    props.bgColor,
+    props.textColor,
   ]);
 
   const removeMediaText = (ctx: CanvasRenderingContext2D) => {
