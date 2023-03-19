@@ -4,6 +4,8 @@
 
 <https://postingan-media-genz.vercel.app>
 
+![Screenshot](https://raw.githubusercontent.com/dotslashf/postingan-media-genz/main/public/images/example.jpg)
+
 ## Installation
 
 1. Clone this repository to your local machine.
