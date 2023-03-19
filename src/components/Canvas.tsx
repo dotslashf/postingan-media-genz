@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { bebas, heebo } from "../pages/_app";
 
 interface Props {
   mediaText: string;
@@ -22,6 +23,13 @@ const Canvas = (props: Props) => {
     width: 500,
     height: 500,
   };
+  const bebasFontFamily = bebas.style.fontFamily
+    .split(",")[0]
+    .replace(/'/g, "");
+
+  const heeboFontFamily = heebo.style.fontFamily
+    .split(",")[0]
+    .replace(/'/g, "");
 
   useEffect(() => {
     if (canvas.current) {
@@ -53,7 +61,7 @@ const Canvas = (props: Props) => {
 
   const drawMediaText = (ctx: CanvasRenderingContext2D, text: string) => {
     ctx.fillStyle = textColor;
-    ctx.font = "48px Bebas Neue";
+    ctx.font = `48px ${bebasFontFamily}`;
     ctx.textAlign = "center";
     if (props.mediaPosition.includes("r")) ctx.textAlign = "right";
     if (props.mediaPosition.includes("l")) ctx.textAlign = "left";
@@ -65,7 +73,7 @@ const Canvas = (props: Props) => {
 
   const drawCaption = (ctx: CanvasRenderingContext2D, text: string) => {
     ctx.fillStyle = textColor;
-    ctx.font = "32px Heebo";
+    ctx.font = `32px ${heeboFontFamily}`;
     ctx.textAlign = (props.captionControl.align as CanvasTextAlign) || "center";
     const maxWidth = props.captionControl.maxWidth
       ? props.captionControl.maxWidth
