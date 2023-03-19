@@ -71,7 +71,6 @@ const Canvas = (props: Props) => {
     const metrics = ctx.measureText(text);
     const fontHeight =
       metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-    console.log(metrics, fontHeight);
 
     if (props.mediaPosition.includes("r")) ctx.textAlign = "right";
     if (props.mediaPosition.includes("l")) ctx.textAlign = "left";
