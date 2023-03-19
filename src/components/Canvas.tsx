@@ -149,7 +149,7 @@ const Canvas = (props: Props) => {
 
   const downloadHandler = () => {
     const link = document.createElement("a");
-    link.download = "image.jpg";
+    link.download = "image.png";
     link.href = canvas.current?.toDataURL("image/jpg")!;
     link.click();
   };
