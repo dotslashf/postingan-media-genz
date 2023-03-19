@@ -19,6 +19,22 @@ export default function Home() {
     media: 48,
     caption: 24,
   });
+  const [tweetToFetch, setTweetToFetch] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const fetchHandler = async () => {
+    setIsLoading(true);
+    const tweetId = tweetToFetch.split("/").pop();
+    fetch("/api/tweet/" + tweetId).then((res) => {
+      setIsLoading(false);
+      if (res.ok) {
+        res.json().then((data) => {
+          setMediaText(data.username);
+          setCaption(data.text);
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -43,6 +59,7 @@ export default function Home() {
                 name="media"
                 className="w-full px-2 py-2 rounded-md border-gray-400 border"
                 placeholder="ICKWR"
+                value={mediaText}
                 onChange={(e) => setMediaText(e.target.value)}
               />
             </div>
@@ -62,9 +79,56 @@ export default function Home() {
               rows={4}
               className="w-full px-2 py-2 rounded-md border-gray-400 border"
               placeholder="kulkas LG 2 pintu minat inbok"
-              defaultValue={""}
+              value={caption}
               onChange={(e) => setCaption(e.target.value)}
             />
+          </div>
+        </div>
+        <div className="inline-flex items-center justify-center w-full">
+          <hr className="w-full h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
+          <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 ">
+            or
+          </span>
+        </div>
+        <div className="flex gap-x-4">
+          <div className="w-full">
+            <label
+              htmlFor="fetchTweet"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Fetch Tweet
+            </label>
+            <div className="mt-2 flex items-center space-x-2">
+              <input
+                id="fetchTweet"
+                name="fetchTweet"
+                className="w-full px-2 py-2 rounded-md border-gray-400 border"
+                placeholder="https://twitter.com/anjimeNation/status/1636783962562629632?s=20"
+                onChange={(e) => setTweetToFetch(e.target.value)}
+              />
+              <button
+                type="button"
+                className="focus:outline-none text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 flex items-center shadow-md "
+                onClick={fetchHandler}
+              >
+                Fetch
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  className={`ml-4 w-4 h-4 ${isLoading ? "animate-spin" : ""}`}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
         <Disclosure>
