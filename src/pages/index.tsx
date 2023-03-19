@@ -1,4 +1,5 @@
 import Canvas from "@/components/Canvas";
+import ColorPicker from "@/components/ColorPicker";
 import { Disclosure } from "@headlessui/react";
 import Head from "next/head";
 import React from "react";
@@ -22,6 +23,12 @@ export default function Home() {
   const [tweetToFetch, setTweetToFetch] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
+  const [bgColor, setBgColor] = React.useState("#18191A");
+  const [textColor, setTextColor] = React.useState("#FFFFFF");
+  const [isBgColorPickerOpen, setIsBgColorPickerOpen] = React.useState(false);
+  const [isTextColorPickerOpen, setIsTextColorPickerOpen] =
+    React.useState(false);
+
   const fetchHandler = async () => {
     setIsLoading(true);
     const tweetId = tweetToFetch.split("/").pop();
@@ -35,6 +42,13 @@ export default function Home() {
       }
     });
   };
+
+  React.useEffect(() => {
+    if (colorMode === "custom") {
+      setIsBgColorPickerOpen(false);
+      setIsTextColorPickerOpen(false);
+    }
+  }, [colorMode]);
 
   return (
     <>
@@ -317,8 +331,27 @@ export default function Home() {
                       <option value={""}>Pilih color mode</option>
                       <option value="light">Light</option>
                       <option value="dark">Dark</option>
+                      <option value="custom">Custom</option>
                     </select>
                   </div>
+                  {colorMode === "custom" && (
+                    <ColorPicker
+                      label="Background Color"
+                      color={bgColor}
+                      setColor={setBgColor}
+                      isColorPickerOpen={isBgColorPickerOpen}
+                      setIsColorPickerOpen={setIsBgColorPickerOpen}
+                    />
+                  )}
+                  {colorMode === "custom" && (
+                    <ColorPicker
+                      label="Text Color"
+                      color={textColor}
+                      setColor={setTextColor}
+                      isColorPickerOpen={isTextColorPickerOpen}
+                      setIsColorPickerOpen={setIsTextColorPickerOpen}
+                    />
+                  )}
                 </div>
               </Disclosure.Panel>
             </>
@@ -333,6 +366,8 @@ export default function Home() {
             captionControl={captionControl}
             colorMode={colorMode}
             fontSize={fontSize}
+            bgColor={bgColor}
+            textColor={textColor}
           />
         </div>
       </div>
